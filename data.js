@@ -1,52 +1,16 @@
-var dati = [
-  {
-    "id": 10001,
-    "birthDate": "1953-09-01",
-    "firstName": "Georgi",
-    "lastName": "Facello",
-    "gender": "M",
-    "hireDate": "1986-06-25",
-  },
-  {
-    "id": 10002,
-    "birthDate": "1964-06-01",
-    "firstName": "Bezalel",
-    "lastName": "Simmel",
-    "gender": "F",
-    "hireDate": "1985-11-20",
-  },
-  {
-    "id": 10003,
-    "birthDate": "1959-12-02",
-    "firstName": "Parto",
-    "lastName": "Bamford",
-    "gender": "M",
-    "hireDate": "1986-08-27T22:00:00.000+0000",
-  },
-  {
-    "id": 10004,
-    "birthDate": "1954-04-30",
-    "firstName": "Chirstian",
-    "lastName": "Koblick",
-    "gender": "M",
-    "hireDate": "1986-11-30",
 
-  },
-  {
-    "id": 10005,
-    "birthDate": "1955-01-20",
-    "firstName": "Kyoichi",
-    "lastName": "Maliniak",
-    "gender": "M",
-    "hireDate": "1989-09-11T22:00:00.000+0000",
-
-  }
-]
 
 var nexId = 10006;
 
+
+
 //Elimina
 $(document).ready(function () {
+
+  // url iniziale
+  callServer("http://localhost:8080/employees");
+
+
 
   $("body").on("click", ".btn-delete", function () {
     var td = $(this).parent("td");
@@ -87,13 +51,13 @@ $(document).ready(function () {
 
 
   //modifica
-    $("body").on("click", ".btn-mod", function () {
+  $("body").on("click", ".btn-mod", function () {
     var modal = $('#modal-modific');
     modal.modal("show");
     var td = $(this).parent("td");
     console.log(td);
     var id = td.data("id");
-       
+
     for (var i = 0; i < dati.length; i++) {
       if (dati[i].id == id) {
         $('#nome').val(dati[i].firstName);
@@ -101,29 +65,37 @@ $(document).ready(function () {
         break;
       }
     }
- 
+
   });
- 
-
-    //displayTable();
 
 
+  //displayTable();
 
-    /*
-  var modifica = {
-    "id": id,
-    "firstName": firstName,
-    "lastName": lastname,
-    "gender": gender,
-  }
-  console.log(modifica);
-  */
+
+
+  /*
+var modifica = {
+  "id": id,
+  "firstName": firstName,
+  "lastName": lastname,
+  "gender": gender,
+}
+console.log(modifica);
+*/
 
 });
 
 
+function callServer(url) {
+  $.get(url, function(response){
+    console.log(response);
+    displayTable(response["_embedded"]["employees"]);
 
-function displayTable() {
+});
+}
+
+
+function displayTable(dati) {
   var r = '';
   $.each(dati, function (id, value) {
     r += '<tr>';
