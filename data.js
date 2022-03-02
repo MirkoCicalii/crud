@@ -12,6 +12,8 @@ $(document).ready(function () {
 
 
 
+
+
   $("body").on("click", ".btn-delete", function () {
     var td = $(this).parent("td");
     var id = td.data("id");
@@ -83,6 +85,35 @@ var modifica = {
 console.log(modifica);
 */
 
+$('#Next').click(function(){
+  var Next=response['_links']['Next']['href']
+  console.log(Next);
+  callServer(Next);
+});
+
+$('#Last').click(function(){
+  var Next=response['_links']['Last']['href']
+  console.log(Last);
+  callServer(Last);
+});
+
+$('#First').click(function(){
+  var Next=response['_links']['First']['href']
+  console.log(First);
+  callServer(First);
+});
+
+$('#Prev').click(function(){
+  var Next=response['_links']['Prev']['href']
+  console.log(Prev);
+  callServer(Prev);
+});
+
+
+
+
+
+
 });
 
 
@@ -92,8 +123,10 @@ function callServer(url) {
     displayTable(response["_embedded"]["employees"]);
     //displayPagination(response["page"], response["_links"]);
 });
-}
 
+
+
+}
 
 function displayTable(dati) {
   var r = '';
