@@ -90,7 +90,7 @@ function callServer(url) {
   $.get(url, function(response){
     console.log(response);
     displayTable(response["_embedded"]["employees"]);
-
+    //displayPagination(response["page"], response["_links"]);
 });
 }
 
